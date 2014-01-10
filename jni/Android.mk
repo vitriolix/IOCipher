@@ -11,7 +11,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE     := libsqlfs
 LOCAL_CFLAGS     := $(sqlfs_DEFS) -Wall -Werror -Wno-error=maybe-uninitialized
 LOCAL_C_INCLUDES := external/libsqlfs external jni
-LOCAL_LDLIBS     := -llog
+LOCAL_LDLIBS     := -lcrypto -llog -ldl
 LOCAL_SRC_FILES  := ../external/libsqlfs/sqlfs.c
 
 include $(BUILD_STATIC_LIBRARY)
@@ -35,7 +35,7 @@ LOCAL_C_INCLUDES:= \
 	external
 LOCAL_LDFLAGS   += \
 	-L$(LOCAL_PATH)/../external/openssl/obj/local/armeabi/
-LOCAL_LDLIBS    += -lcrypto -llog
+LOCAL_LDLIBS    += -lcrypto -llog -ldl
 LOCAL_SRC_FILES := \
 	JniConstants.cpp \
 	JNI_OnLoad.cpp \
@@ -48,6 +48,7 @@ LOCAL_SRC_FILES := \
 	info_guardianproject_libcore_io_Memory.cpp \
 	info_guardianproject_libcore_io_OsConstants.cpp \
 	info_guardianproject_libcore_io_Posix.cpp \
+	info_guardianproject_iocipher_Pipes.c \
 	../external/sqlcipher/sqlite3.c
 
 include $(BUILD_SHARED_LIBRARY)
@@ -61,7 +62,7 @@ LOCAL_C_INCLUDES := external/libsqlfs external
 LOCAL_SHARED_LIBRARIES := libiocipher
 LOCAL_LDFLAGS   += \
 	-L$(LOCAL_PATH)/../external/openssl/obj/local/armeabi/
-LOCAL_LDLIBS     := -lcrypto -llog
+LOCAL_LDLIBS     := -lcrypto -llog -ldl
 LOCAL_SRC_FILES  := ../external/libsqlfs/sqlfscat.c
 
 include $(BUILD_EXECUTABLE)
